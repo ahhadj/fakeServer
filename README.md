@@ -7,7 +7,7 @@ npm install -g json-server
 ```console
 npm install .
 ```
-3. 启动Server，选择需要的生成数据，例如要生成资源数据就选择resources.js；指定页面的router，比如进行UserPortal页面的开发；指定port 
+3. 启动Server，选择需要的生成数据，例如要生成资源数据就选择resources.js；指定页面的router，比如进行UserPortal页面的开发就选择对应的router文件UserPortal.json；指定port 
 ```console
 json-server resources.js --routes UserPortal.json  --port 3002
 ```
