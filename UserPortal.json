@@ -1,5 +1,6 @@
 {
-	"/user/policy/resource/avail": "/resources?_embed=connections",
-	"/user/policy/resource/search?*": "/resources?$1&_embed=connections",
-	"/user/user/info": "/users/1"
+  "/user/policy/resource/avail": "/resources?_embed=connections",
+  "/user/policy/resource/search?*": "/resources?$1&_embed=connections",
+  "/user/user/info": "/users/1",
+  "/user/attr/info\\?id=:id": "/attributes/:id"
 }
