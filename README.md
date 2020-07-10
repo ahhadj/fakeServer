@@ -7,9 +7,9 @@ npm install -g json-server
 ```console
 npm install .
 ```
-3. 启动Server，选择需要的生成文件，例如resources.js
+3. 启动Server，选择需要的生成数据，例如要生成资源数据就选择resources.js；指定页面的router，比如进行UserPortal页面的开发；指定port 
 ```console
-json-server resources.js
+json-server resources.js --routes UserPortal.json  --port 3002
 ```
 4. 服务器使用了JSON Server,具体使用可以参考文档[JSON Server](https://github.com/typicode/json-server).
 5. 数据生成使用了Faker,具体使用可以参考文档[Faker](https://github.com/Marak/faker.js).

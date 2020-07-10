@@ -1,0 +1,5 @@
+{
+	"/user/policy/resource/avail": "/resources",
+	"/user/policy/resource/search?*": "/resources?$1",
+	"/user/user/info": "/users/1"
+}
