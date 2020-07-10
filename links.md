@@ -1,0 +1,5 @@
+1. [SystemAdmin](http://119.3.139.5:1004/swagger-ui.html#!/)  
+2. [UserAdmin](http://119.3.139.5:1005/swagger-ui.html#!/) 
+3. [UserPortal](http://119.3.139.5:1006/swagger-ui.html#!/) 
+4. [ResourceAdmin](http://119.3.139.5:1007/swagger-ui.html#!/) 
+5. [PolicyAdmin](http://119.3.139.5:1008/swagger-ui.html#!/)
