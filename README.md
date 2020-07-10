@@ -7,7 +7,7 @@ npm install -g json-server
 ```console
 npm install --save faker
 ```
-3. 启动Server：
+3. 启动Server，选择需要的生成文件，例如resources.js
 ```console
-json-server resources.js 
+json-server resources.js
 ```
