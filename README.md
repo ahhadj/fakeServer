@@ -11,3 +11,5 @@ npm install .
 ```console
 json-server resources.js
 ```
+4. 服务器使用了JSON Server,具体使用可以参考文档[JSON Server](https://github.com/typicode/json-server).
+5. 数据生成使用了Faker,具体使用可以参考文档[Faker](https://github.com/Marak/faker.js).
