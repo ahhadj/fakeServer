@@ -5,7 +5,7 @@ npm install -g json-server
 ```
 2. 安装依赖：
 ```console
-npm install
+npm install --save faker
 ```
 3. 启动Server：
 ```console
