@@ -1,3 +1,4 @@
+var { fakeUser } = require('./common.js');
 var faker = require('faker');
 
 const categories = [
@@ -94,7 +95,8 @@ function generateData() {
 			connectList: connections
 		});
 	}
-	return { resources };
+	let users = [ fakeUser(1, faker) ];
+	return { resources, users };
 }
 
 module.exports = generateData;
