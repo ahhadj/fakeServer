@@ -34,7 +34,7 @@ const categories = [
 
 const enumStatus = [ 'enabled', 'disabled' ];
 
-function fakeConnection() {
+function fakeConnection(resourceId) {
 	return {
 		createTime: faker.date.between('2018-01-01', '2020-07-30').toLocaleTimeString,
 		description: faker.hacker.phrase(),
@@ -51,12 +51,14 @@ function fakeConnection() {
 		riskScore: faker.random.number(10),
 		sensitivityLevel: faker.random.number(5),
 		sessionRecord: faker.random.boolean(),
-		username: faker.internet.userName()
+		username: faker.internet.userName(),
+		resourceId
 	};
 }
 
 function generateData() {
 	var resources = [];
+	var connections = [];
 
 	for (let id = 0; id < 80; id++) {
 		let c = faker.random.arrayElement(categories);
@@ -70,10 +72,9 @@ function generateData() {
 		};
 		let status = faker.random.arrayElement(enumStatus);
 		let ip = faker.internet.ip();
-		let connections = [];
 		let connectionNumber = faker.random.number(10);
 		for (let i = 0; i < connectionNumber; i++) {
-			connections.push(fakeConnection());
+			connections.push(fakeConnection(id));
 		}
 		let tags = [];
 		let tagNumber = faker.random.number(5);
@@ -91,12 +92,11 @@ function generateData() {
 			resourceStatus,
 			status,
 			ip,
-			tags,
-			connectList: connections
+			tags
 		});
 	}
 	let users = [ fakeUser(1, faker) ];
-	return { resources, users };
+	return { connections, resources, users };
 }
 
 module.exports = generateData;

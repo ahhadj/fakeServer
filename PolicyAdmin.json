@@ -1,0 +1,7 @@
+{
+	"/policy/policy/list": "/policies",
+	"/policy/user/info": "/users/1",
+	"/policy/policy/create": "/policies",
+	"/policy/policy/delete\\?id=:id": "/policies/:id",
+	"/policy/policy/update\\?id=:id": "/policies/:id"
+}

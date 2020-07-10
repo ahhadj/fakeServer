@@ -1,4 +1,5 @@
 var faker = require('faker');
+var { fakeUser } = require('./common.js');
 
 const connectionTemplate = {
 	createTime: 0,
@@ -113,11 +114,13 @@ function fakePolicy(id) {
 }
 
 function generateData() {
-	let policyes = [];
+	let policies = [];
 	for (let id = 0; id < 80; id++) {
-		policyes.push(fakePolicy(id));
+		policies.push(fakePolicy(id));
 	}
-	return { policyes };
+	let users = [ fakeUser(1, faker) ];
+
+	return { policies, users };
 }
 
 module.exports = generateData;

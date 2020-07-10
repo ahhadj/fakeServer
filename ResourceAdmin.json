@@ -1,0 +1,11 @@
+{
+	"/resource/admin/user/info": "/users/1",
+	"/resource/admin/resource/list": "/resources?_embed=connections",
+	"/resource/admin/resource/detail\\?id=:id": "/resources/:id?_embed=connections",
+	"/resource/admin/resource/delete\\?id=:id": "/resources/:id",
+	"/resource/admin/resource/create": "/resources",
+	"/resource/admin/resource/update\\?id=:id": "/resources/:id",
+	"/resource/admin/connect/create": "/connections",
+	"/resource/admin/connect/delete\\?id=:id": "/connections/:id",
+	"/resource/admin/connect/update\\?id=:id": "/connections/:id"
+}

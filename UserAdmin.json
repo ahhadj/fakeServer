@@ -1,0 +1,7 @@
+{
+	"/useradmin/admin/user/list": "/users",
+	"/useradmin/admin/user/get\\?id=:id": "/users/:id",
+	"/useradmin/admin/user/create": "/users",
+	"/useradmin/admin/user/delete\\?id=:id": "/users/:id",
+	"/useradmin/admin/user/update\\?id=:id": "/users/:id"
+}
