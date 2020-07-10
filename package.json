@@ -1,0 +1,23 @@
+{
+	"name": "fakeserver",
+	"version": "1.0.0",
+	"description": "1. 安装json-server: ```console npm install -g json-server ``` 2. 安装依赖： ```console npm install --save faker ``` 3. 启动Server，选择需要的生成文件，例如resources.js ```console json-server resources.js ```",
+	"main": "policy.js",
+	"dependencies": {
+		"faker": "^4.1.0"
+	},
+	"devDependencies": {},
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/ahhadj/fakeServer.git"
+	},
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/ahhadj/fakeServer/issues"
+	},
+	"homepage": "https://github.com/ahhadj/fakeServer#readme"
+}
