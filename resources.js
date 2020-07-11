@@ -102,7 +102,7 @@ function fakeConnection(resourceId) {
     id: faker.random.number(99999),
     maxConnections: faker.random.number(20),
     maxConnectionsPerUser: faker.random.number(5),
-    name: faker.name.title(),
+    name: faker.random.word(),
     outerId: faker.random.number(99999),
     password: faker.internet.password(),
     port: faker.random.number({ min: 80, max: 99999 }),
@@ -128,7 +128,7 @@ function generateData() {
       .toISOString()
       .split("T");
     let hostname = faker.internet.domainName();
-    let name = faker.system.fileName();
+    let name = faker.random.word();
     let realm = faker.address.city();
     let resourceStatus = {
       cpu: faker.random.number(10),
