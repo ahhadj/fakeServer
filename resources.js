@@ -65,6 +65,12 @@ const attrCategory = {
   ],
 };
 
+const attrName = {
+  id: "name",
+  type: "string",
+  values: [],
+};
+
 const attrGroup = {
   id: "group",
   type: "enum",
@@ -89,11 +95,23 @@ const attrTag = {
   values: ["risk", "safe", "read only", "read write", "sensative"],
 };
 
-const attributes = [attrType, attrCategory, attrGroup, attrProtocol, attrTag];
+const attributes = [
+  attrType,
+  attrCategory,
+  attrGroup,
+  attrProtocol,
+  attrTag,
+  attrName,
+];
 
 const enumStatus = ["enabled", "disabled"];
 
 function fakeConnection(resourceId) {
+  let linkNum = faker.random.number({ max: 3, min: 1 });
+  let links = [];
+  for (let i = 0; i < linkNum; i++) {
+    links.push(faker.internet.email());
+  }
   return {
     createTime: faker.date.between("2018-01-01", "2020-07-30")
       .toLocaleTimeString,
@@ -113,6 +131,7 @@ function fakeConnection(resourceId) {
     sessionRecord: faker.random.boolean(),
     username: faker.internet.userName(),
     resourceId,
+    links,
   };
 }
 
@@ -135,7 +154,7 @@ function generateData() {
     };
     let status = faker.random.arrayElement(enumStatus);
     let ip = faker.internet.ip();
-    let connectionNumber = faker.random.number(10);
+    let connectionNumber = faker.random.number({ min: 1, max: 5 });
     for (let i = 0; i < connectionNumber; i++) {
       connections.push(fakeConnection(id));
     }
@@ -145,8 +164,10 @@ function generateData() {
     for (let i = 0; i < tagNumber; i++) {
       tagSet.add(faker.random.arrayElement(attrTag.values));
     }
+    let description = faker.hacker.phrase();
     resources.push({
       category: c.category,
+      description,
       type: t,
       createTime,
       hostname,
