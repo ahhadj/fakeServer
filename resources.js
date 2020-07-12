@@ -1,5 +1,6 @@
 var { fakeUser } = require("./common.js");
 var faker = require("faker");
+const { fake } = require("faker");
 
 const categories = [
   {
@@ -29,7 +30,7 @@ const categories = [
   {
     category: "Folder",
     types: ["Folder"],
-  },
+  }
 ];
 
 const attrType = {
@@ -48,7 +49,7 @@ const attrType = {
     "excel",
     "ppt",
     "Folder",
-  ],
+  ]
 };
 
 const attrCategory = {
@@ -62,13 +63,13 @@ const attrCategory = {
     "C/S App",
     "File",
     "Folder",
-  ],
+  ]
 };
 
 const attrName = {
   id: "name",
   type: "string",
-  values: [],
+  values: ""
 };
 
 const attrGroup = {
@@ -82,17 +83,47 @@ const attrGroup = {
     "IT",
     "Sales",
     "Marketing",
-  ],
+  ]
 };
 const attrProtocol = {
   id: "protocol",
   type: "enum",
-  values: ["SSH", "HTTPS", "RDP"],
+  values: ["SSH", "HTTPS", "RDP"]
 };
 const attrTag = {
   id: "tags",
   type: "enum",
   values: ["risk", "safe", "read only", "read write", "sensative"],
+};
+
+const attrDepartment = {
+  id: "department",
+  type: "enum",
+  values: ["TEC", "SALES", "IT", "Finance"]
+};
+
+const attrLocation = {
+  id: "location",
+  type: "string",
+  values: ""
+};
+
+const attrAddress = {
+  id: "address",
+  type: "string",
+  values: ""
+};
+
+const attrModel = {
+  id: "model",
+  type: "string",
+  values: ""
+};
+
+const attrRoute = {
+  id: "route",
+  type: "string",
+  values: ""
 };
 
 const attributes = [
@@ -102,6 +133,11 @@ const attributes = [
   attrProtocol,
   attrTag,
   attrName,
+  attrDepartment,
+  attrLocation,
+  attrAddress,
+  attrModel,
+  attrRoute
 ];
 
 const enumStatus = ["enabled", "disabled"];
@@ -153,7 +189,10 @@ function generateData() {
       cpu: faker.random.number(10),
     };
     let status = faker.random.arrayElement(enumStatus);
-    let ip = faker.internet.ip();
+    let address = faker.internet.ip();
+    let location = faker.random.word();
+    let department = faker.random.arrayElement(attrDepartment.values);
+    let route = faker.random.word();
     let connectionNumber = faker.random.number({ min: 1, max: 5 });
     for (let i = 0; i < connectionNumber; i++) {
       connections.push(fakeConnection(id));
@@ -176,9 +215,12 @@ function generateData() {
       realm,
       resourceStatus,
       status,
-      ip,
+      address,
       group,
       tags: [...tagSet],
+      location,
+      department,
+      route
     });
   }
   let users = [fakeUser(1, faker)];
