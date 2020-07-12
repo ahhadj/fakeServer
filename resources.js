@@ -90,7 +90,7 @@ const attrProtocol = {
   values: ["SSH", "HTTPS", "RDP"],
 };
 const attrTag = {
-  id: "tag",
+  id: "tags",
   type: "enum",
   values: ["risk", "safe", "read only", "read write", "sensative"],
 };
