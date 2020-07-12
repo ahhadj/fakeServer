@@ -8,5 +8,6 @@
   "/resource/admin/connect/create": "/connections",
   "/resource/admin/connect/delete\\?id=:id": "/connections/:id",
   "/resource/admin/connect/update\\?id=:id": "/connections/:id",
-  "/resource/attr/info\\?id=:id": "/attributes/:id"
+  "/resource/attr/info\\?id=:id": "/attributes/:id",
+  "/resource/attr/info": "/attributes"
 }

@@ -34,9 +34,9 @@ const categories = [
 ];
 
 const attrType = {
-  id: "type",
+  name: "type",
   type: "enum",
-  values: [
+  options: [
     "Windows",
     "Linux",
     "Mac",
@@ -53,9 +53,9 @@ const attrType = {
 };
 
 const attrCategory = {
-  id: "category",
+  name: "category",
   type: "enum",
-  values: [
+  options: [
     "Desktop",
     "Workstation",
     "Server",
@@ -67,15 +67,15 @@ const attrCategory = {
 };
 
 const attrName = {
-  id: "name",
+  name: "name",
   type: "string",
-  values: ""
+  maxLength: 30
 };
 
 const attrGroup = {
-  id: "group",
+  name: "group",
   type: "enum",
-  values: [
+  options: [
     "Security",
     "Finance",
     "Human Resource",
@@ -86,47 +86,47 @@ const attrGroup = {
   ]
 };
 const attrProtocol = {
-  id: "protocol",
+  name: "protocol",
   type: "enum",
-  values: ["SSH", "HTTPS", "RDP"]
+  options: ["SSH", "HTTPS", "RDP"]
 };
 const attrTag = {
-  id: "tags",
+  name: "tags",
   type: "enum",
-  values: ["risk", "safe", "read only", "read write", "sensative"],
+  options: ["risk", "safe", "read only", "read write", "sensative"],
 };
 
 const attrDepartment = {
-  id: "department",
+  name: "department",
   type: "enum",
-  values: ["TEC", "SALES", "IT", "Finance"]
+  options: ["TEC", "SALES", "IT", "Finance"]
 };
 
 const attrLocation = {
-  id: "location",
+  name: "location",
   type: "string",
-  values: ""
+  maxLength: 30
 };
 
 const attrAddress = {
-  id: "address",
+  name: "address",
   type: "string",
-  values: ""
+  maxLength: 30
 };
 
 const attrModel = {
-  id: "model",
+  name: "model",
   type: "string",
-  values: ""
+  maxLength: 30
 };
 
 const attrRoute = {
   id: "route",
   type: "string",
-  values: ""
+  maxLength: 30
 };
 
-const attributes = [
+const resourceAttributes = [
   attrType,
   attrCategory,
   attrGroup,
@@ -138,6 +138,19 @@ const attributes = [
   attrAddress,
   attrModel,
   attrRoute
+];
+
+const attributes = [
+  {
+    "id": "Resource",
+    "name":"Resource",
+    "fields": resourceAttributes
+  },
+  {
+    "id": "User",
+    "name":"User",
+    "fields": []
+  }
 ];
 
 const enumStatus = ["enabled", "disabled"];
@@ -160,7 +173,7 @@ function fakeConnection(resourceId) {
     outerId: faker.random.number(99999),
     password: faker.internet.password(),
     port: faker.random.number({ min: 80, max: 99999 }),
-    protocol: faker.random.arrayElement(attrProtocol.values),
+    protocol: faker.random.arrayElement(attrProtocol.options),
     realm: faker.address.city(),
     riskScore: faker.random.number(10),
     sensitivityLevel: faker.random.number(5),
@@ -191,7 +204,7 @@ function generateData() {
     let status = faker.random.arrayElement(enumStatus);
     let address = faker.internet.ip();
     let location = faker.random.word();
-    let department = faker.random.arrayElement(attrDepartment.values);
+    let department = faker.random.arrayElement(attrDepartment.options);
     let route = faker.random.word();
     let connectionNumber = faker.random.number({ min: 1, max: 5 });
     for (let i = 0; i < connectionNumber; i++) {
@@ -199,9 +212,9 @@ function generateData() {
     }
     let tagNumber = faker.random.number(5);
     let tagSet = new Set();
-    let group = faker.random.arrayElement(attrGroup.values);
+    let group = faker.random.arrayElement(attrGroup.options);
     for (let i = 0; i < tagNumber; i++) {
-      tagSet.add(faker.random.arrayElement(attrTag.values));
+      tagSet.add(faker.random.arrayElement(attrTag.options));
     }
     let description = faker.hacker.phrase();
     resources.push({
