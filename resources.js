@@ -1,36 +1,6 @@
 var { fakeUser } = require("./common.js");
 var faker = require("faker");
-
-const categories = [
-  {
-    category: "Desktop",
-    types: ["Windows", "Linux", "Mac"],
-  },
-  {
-    category: "Workstation",
-    types: ["Windows", "Linux", "Mac"],
-  },
-  {
-    category: "Server",
-    types: ["Windows", "Linux", "Unix"],
-  },
-  {
-    category: "WebApp",
-    types: ["WebApp"],
-  },
-  {
-    category: "C/S App",
-    types: ["C/S App"],
-  },
-  {
-    category: "File",
-    types: ["pdf", "image", "word", "excel", "ppt"],
-  },
-  {
-    category: "Folder",
-    types: ["Folder"],
-  },
-];
+const { fake } = require("faker");
 
 const templateUser = {
   name: "User",
@@ -281,9 +251,9 @@ const templateConnect = {
 };
 
 const attrType = {
-  id: "type",
+  name: "type",
   type: "enum",
-  values: [
+  options: [
     "Windows",
     "Linux",
     "Mac",
@@ -297,12 +267,22 @@ const attrType = {
     "ppt",
     "Folder",
   ],
+  filterBy: "category",
+  filterRules: {
+    "Desktop": ["Windows", "Linux", "Mac"],
+    "Workstation": ["Windows", "Linux", "Mac"],
+    "Server": ["Windows", "Linux", "Unix"],
+    "WebApp": ["WebApp"],
+    "C/S App": ["C/S App"],
+    "File": ["pdf", "image", "word", "excel", "ppt"],
+    "Folder": ["Folder"]
+  }
 };
 
 const attrCategory = {
-  id: "category",
+  name: "category",
   type: "enum",
-  values: [
+  options: [
     "Desktop",
     "Workstation",
     "Server",
@@ -310,19 +290,19 @@ const attrCategory = {
     "C/S App",
     "File",
     "Folder",
-  ],
+  ]
 };
 
 const attrName = {
-  id: "name",
+  name: "name",
   type: "string",
-  values: [],
+  maxLength: 30
 };
 
 const attrGroup = {
-  id: "group",
+  name: "group",
   type: "enum",
-  values: [
+  options: [
     "Security",
     "Finance",
     "Human Resource",
@@ -330,26 +310,79 @@ const attrGroup = {
     "IT",
     "Sales",
     "Marketing",
-  ],
+  ]
 };
 const attrProtocol = {
-  id: "protocol",
+  name: "protocol",
   type: "enum",
-  values: ["SSH", "HTTPS", "RDP"],
+  options: ["SSH", "HTTPS", "RDP"]
 };
 const attrTag = {
-  id: "tags",
+  name: "tags",
   type: "enum",
-  values: ["risk", "safe", "read only", "read write", "sensative"],
+  options: ["risk", "safe", "read only", "read write", "sensative"],
 };
 
-const attributes = [
+const attrDepartment = {
+  name: "department",
+  type: "enum",
+  options: ["TEC", "SALES", "IT", "Finance"]
+};
+
+const attrLocation = {
+  name: "location",
+  type: "string",
+  maxLength: 30
+};
+
+const attrAddress = {
+  name: "address",
+  type: "string",
+  maxLength: 30
+};
+
+const attrModel = {
+  name: "model",
+  type: "string",
+  maxLength: 30
+};
+
+const attrRoute = {
+  id: "route",
+  type: "string",
+  maxLength: 30
+};
+
+const resourceAttributes = [
   attrType,
   attrCategory,
   attrGroup,
   attrProtocol,
   attrTag,
   attrName,
+  attrDepartment,
+  attrLocation,
+  attrAddress,
+  attrModel,
+  attrRoute
+];
+
+const attributes = [
+  {
+    "id": "Resource",
+    "name":"Resource",
+    "fields": resourceAttributes
+  },
+  {
+    "id": "User",
+    "name":"User",
+    "fields": []
+  },
+  {
+    "id": "Connect",
+    "name":"Connect",
+    "fields": []
+  }
 ];
 
 const enumStatus = ["enabled", "disabled"];
@@ -372,7 +405,7 @@ function fakeConnection(resourceId) {
     outerId: faker.random.number(99999),
     password: faker.internet.password(),
     port: faker.random.number({ min: 80, max: 99999 }),
-    protocol: faker.random.arrayElement(attrProtocol.values),
+    protocol: faker.random.arrayElement(attrProtocol.options),
     realm: faker.address.city(),
     riskScore: faker.random.number(10),
     sensitivityLevel: faker.random.number(5),
@@ -388,8 +421,9 @@ function generateData() {
   var connections = [];
 
   for (let id = 0; id < 80; id++) {
-    let c = faker.random.arrayElement(categories);
-    let t = faker.random.arrayElement(c.types);
+    let c = faker.random.arrayElement(attrCategory.options);
+    let t = faker.random.arrayElement(attrType.filterRules[c]);
+    console.log('category: ' + c + ', type: ' + t);
     let createTime = faker.date
       .between("2018-01-01", "2020-07-30")
       .toISOString()
@@ -401,20 +435,23 @@ function generateData() {
       cpu: faker.random.number(10),
     };
     let status = faker.random.arrayElement(enumStatus);
-    let ip = faker.internet.ip();
+    let address = faker.internet.ip();
+    let location = faker.random.word();
+    let department = faker.random.arrayElement(attrDepartment.options);
+    let route = faker.random.word();
     let connectionNumber = faker.random.number({ min: 1, max: 5 });
     for (let i = 0; i < connectionNumber; i++) {
       connections.push(fakeConnection(id));
     }
     let tagNumber = faker.random.number(5);
     let tagSet = new Set();
-    let group = faker.random.arrayElement(attrGroup.values);
+    let group = faker.random.arrayElement(attrGroup.options);
     for (let i = 0; i < tagNumber; i++) {
-      tagSet.add(faker.random.arrayElement(attrTag.values));
+      tagSet.add(faker.random.arrayElement(attrTag.options));
     }
     let description = faker.hacker.phrase();
     resources.push({
-      category: c.category,
+      category: c,
       description,
       type: t,
       createTime,
@@ -424,9 +461,12 @@ function generateData() {
       realm,
       resourceStatus,
       status,
-      ip,
+      address,
       group,
       tags: [...tagSet],
+      location,
+      department,
+      route
     });
   }
   let users = [fakeUser(1, faker)];
