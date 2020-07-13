@@ -2,37 +2,6 @@ var { fakeUser } = require("./common.js");
 var faker = require("faker");
 const { fake } = require("faker");
 
-const categories = [
-  {
-    category: "Desktop",
-    types: ["Windows", "Linux", "Mac"],
-  },
-  {
-    category: "Workstation",
-    types: ["Windows", "Linux", "Mac"],
-  },
-  {
-    category: "Server",
-    types: ["Windows", "Linux", "Unix"],
-  },
-  {
-    category: "WebApp",
-    types: ["WebApp"],
-  },
-  {
-    category: "C/S App",
-    types: ["C/S App"],
-  },
-  {
-    category: "File",
-    types: ["pdf", "image", "word", "excel", "ppt"],
-  },
-  {
-    category: "Folder",
-    types: ["Folder"],
-  }
-];
-
 const attrType = {
   name: "type",
   type: "enum",
@@ -49,7 +18,17 @@ const attrType = {
     "excel",
     "ppt",
     "Folder",
-  ]
+  ],
+  filterBy: "category",
+  filterRules: {
+    "Desktop": ["Windows", "Linux", "Mac"],
+    "Workstation": ["Windows", "Linux", "Mac"],
+    "Server": ["Windows", "Linux", "Unix"],
+    "WebApp": ["WebApp"],
+    "C/S App": ["C/S App"],
+    "File": ["pdf", "image", "word", "excel", "ppt"],
+    "Folder": ["Folder"]
+  }
 };
 
 const attrCategory = {
@@ -150,6 +129,11 @@ const attributes = [
     "id": "User",
     "name":"User",
     "fields": []
+  },
+  {
+    "id": "Connect",
+    "name":"Connect",
+    "fields": []
   }
 ];
 
@@ -189,8 +173,9 @@ function generateData() {
   var connections = [];
 
   for (let id = 0; id < 80; id++) {
-    let c = faker.random.arrayElement(categories);
-    let t = faker.random.arrayElement(c.types);
+    let c = faker.random.arrayElement(attrCategory.options);
+    let t = faker.random.arrayElement(attrType.filterRules[c]);
+    console.log('category: ' + c + ', type: ' + t);
     let createTime = faker.date
       .between("2018-01-01", "2020-07-30")
       .toISOString()
@@ -218,7 +203,7 @@ function generateData() {
     }
     let description = faker.hacker.phrase();
     resources.push({
-      category: c.category,
+      category: c,
       description,
       type: t,
       createTime,
