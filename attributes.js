@@ -96,7 +96,7 @@ const attrModel = {
 };
 
 const attrRoute = {
-  id: "route",
+  name: "route",
   type: "string",
   maxLength: 30,
 };
@@ -105,7 +105,6 @@ const resourceAttributes = [
   attrType,
   attrCategory,
   attrGroup,
-  attrProtocol,
   attrTag,
   attrName,
   attrDepartment,
@@ -115,21 +114,25 @@ const resourceAttributes = [
   attrRoute,
 ];
 
+const connectAttributes = [
+  attrProtocol
+];
+
 const attributes = [
   {
     id: "Resource",
     name: "Resource",
-    fields: resourceAttributes,
+    fields: resourceAttributes
   },
   {
     id: "User",
     name: "User",
-    fields: [],
+    fields: []
   },
   {
     id: "Connect",
     name: "Connect",
-    fields: [],
+    fields: connectAttributes
   },
 ];
 
