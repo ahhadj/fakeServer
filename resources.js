@@ -32,6 +32,254 @@ const categories = [
   },
 ];
 
+const templateUser = {
+  name: "User",
+  fields: [
+    {
+      name: "id",
+      type: "ID",
+    },
+    {
+      name: "outerId",
+      type: "ID",
+    },
+    {
+      name: "realm",
+      type: "STRING",
+    },
+    {
+      name: "username",
+      type: "STRING",
+      maxLength: 20,
+    },
+    {
+      name: "enabled",
+      type: "BOOLEAN",
+    },
+    {
+      name: "email",
+      type: "STRING",
+      maxLength: 100,
+    },
+    {
+      name: "description",
+      type: "STRING",
+      maxLength: 200,
+    },
+    {
+      name: "lastName",
+      type: "STRING",
+      maxLength: 20,
+    },
+    {
+      name: "firstName",
+      type: "STRING",
+      maxLength: 20,
+    },
+    {
+      name: "phone",
+      type: "STRING",
+      maxLength: 20,
+    },
+    {
+      name: "credentialList",
+      type: "Credential",
+      isList: 1,
+    },
+    {
+      name: "custom",
+      type: "UserCustom",
+    },
+    {
+      name: "createTime",
+      type: "LONG",
+    },
+  ],
+};
+
+const templateCredential = {
+  name: "Credential",
+  fields: [
+    {
+      name: "type",
+      options: ["PASSWORD", "TOKEN"],
+      type: "ENUM",
+    },
+    {
+      name: "value",
+      type: "PASSWORD",
+      maxLength: 128,
+    },
+  ],
+};
+
+const templateResource = {
+  name: "Resource",
+  fields: [
+    {
+      name: "type",
+      type: "ENUM",
+      options: [
+        "Windows",
+        "Linux",
+        "Mac",
+        "Unix",
+        "WebApp",
+        "C/S App",
+        "pdf",
+        "image",
+        "word",
+        "excel",
+        "ppt",
+        "Folder",
+      ],
+    },
+    {
+      name: "id",
+      type: "ID",
+    },
+    {
+      name: "realm",
+      type: "STRING",
+    },
+    {
+      name: "name",
+      type: "STRING",
+      maxLength: 30,
+    },
+    {
+      name: "category",
+      type: "STRING",
+      maxLength: 30,
+    },
+    {
+      name: "hostname",
+      type: "STRING",
+      maxLength: 50,
+    },
+    {
+      minValue: 1,
+      name: "riskScore",
+      type: "DOUBLE",
+    },
+    {
+      name: "connectList",
+      type: "Connect",
+      isList: 1,
+    },
+    {
+      name: "tags",
+      type: "STRING",
+      isList: 1,
+    },
+    {
+      name: "custom",
+      type: "ResourceCustom",
+    },
+    {
+      name: "createTime",
+      type: "LONG",
+    },
+  ],
+};
+
+const templateUserCustom = {
+  name: "UserCustom",
+  fields: [
+    {
+      minValue: 1,
+      name: "score",
+      type: "DOUBLE",
+    },
+  ],
+};
+
+const templateResourceCustom = {
+  name: "ResourceCustom",
+  fields: [
+    {
+      name: "group",
+      type: "STRING",
+    },
+  ],
+};
+
+const templateConnect = {
+  name: "Connect",
+  fields: [
+    {
+      name: "id",
+      type: "ID",
+    },
+    {
+      name: "outerId",
+      type: "ID",
+    },
+    {
+      name: "realm",
+      type: "STRING",
+    },
+    {
+      name: "name",
+      type: "STRING",
+      maxLength: 30,
+    },
+    {
+      name: "protocol",
+      options: ["SSH", "VNC", "RDP", "WEB"],
+      type: "ENUM",
+    },
+    {
+      name: "PORT",
+      type: "INT",
+    },
+    {
+      name: "username",
+      type: "STRING",
+      maxLength: 50,
+    },
+    {
+      name: "password",
+      type: "PASSWORD",
+      maxLength: 50,
+    },
+    {
+      minValue: 1,
+      name: "riskScore",
+      type: "DOUBLE",
+    },
+    {
+      minValue: 1,
+      name: "sensitivityLevel",
+      type: "INT",
+    },
+    {
+      name: "createTime",
+      type: "LONG",
+    },
+    {
+      name: "sessionRecord",
+      type: "BOOLEAN",
+    },
+    {
+      name: "fileTransfer",
+      type: "BOOLEAN",
+    },
+    {
+      minValue: 1,
+      maxValue: 100,
+      name: "maxConnections",
+      type: "INT",
+    },
+    {
+      minValue: 1,
+      maxValue: 100,
+      name: "maxConnectionsPerUser",
+      type: "INT",
+    },
+  ],
+};
+
 const attrType = {
   id: "type",
   type: "enum",
