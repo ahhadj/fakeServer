@@ -67,7 +67,7 @@ const attrProtocol = {
 };
 const attrTag = {
   name: "tags",
-  type: "enum",
+  type: "list",
   options: ["risk", "safe", "read only", "read write", "sensative"],
 };
 
