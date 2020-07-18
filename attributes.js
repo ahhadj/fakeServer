@@ -209,7 +209,7 @@ const attrAllowPaste = {
 }
 
 const attrAllowDownload = {
-  name: "allow_file_copy",
+  name: "allow_file_download",
   type: "boolean"
 }
 
