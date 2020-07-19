@@ -143,6 +143,11 @@ const attrPort = {
   type: "number"
 }
 
+const attrDescription = {
+  name: "description",
+  type: "string"
+}
+
 const attrAccount = {
   name: "account",
   type: "string",
@@ -170,10 +175,8 @@ const attrCredentialType = {
   name: "credential_type",
   type: "enum",
   options: [
-    "T1",
-    "T2",
-    "T3",
-    "T4"
+    "Password",
+    "Certificate"
   ]
 }
 
@@ -220,12 +223,12 @@ const attrAllowUpdate = {
 
 const attrCommandAllow = {
   name: "commands_allowed",
-  type: "list"
+  type: "string"
 }
 
 const attrCommandNotAllow = {
   name: "commands_not_allowed",
-  type: "list"
+  type: "string"
 }
 
 const connectAttributes = [
@@ -233,6 +236,7 @@ const connectAttributes = [
   attrConnectType,
   attrProtocol,
   attrPort,
+  attrDescription,
   attrCredential,
   attrAccount,
   attrSensitivityLevel,
