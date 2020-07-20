@@ -68,7 +68,7 @@ function generateData() {
   var resources = [];
   var connections = [];
 
-  for (let id = 0; id < 80; id++) {
+  for (let id = 0; id < 5; id++) {
     let c = faker.random.arrayElement(attrCategory.options);
     let t = faker.random.arrayElement(attrType.filterRules[c]);
     let createTime = faker.date
