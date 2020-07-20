@@ -7,37 +7,60 @@ var {
   attrGroup,
   attrTag,
   attrProtocol,
+  attrConnectType,
+  attrSensitivityLevel,
+  attrCredentialType
 } = require("./attributes.js");
 var faker = require("faker");
 
 const enumStatus = ["enabled", "disabled"];
 
 function fakeConnection(resourceId) {
-  let linkNum = faker.random.number({ max: 3, min: 1 });
-  let links = [];
-  for (let i = 0; i < linkNum; i++) {
-    links.push(faker.internet.email());
+  const credentialCount = faker.random.number(3);
+  let credential = [];
+  for (let i = 0; i < credentialCount; ++i) {
+    const type = faker.random.arrayElement(attrCredentialType.options);
+    const value = faker.internet.password();
+    credential.push({
+      type,
+      value
+    })
   }
+  const type = faker.random.arrayElement(attrConnectType.options);
+  const protocol = faker.random.arrayElement(attrProtocol.filterRules[type]);
   return {
     createTime: faker.date.between("2018-01-01", "2020-07-30")
       .toLocaleTimeString,
     description: faker.hacker.phrase(),
-    fileTransfer: faker.random.boolean(),
     id: faker.random.number(99999),
     maxConnections: faker.random.number(20),
     maxConnectionsPerUser: faker.random.number(5),
     name: faker.random.word(),
     outerId: faker.random.number(99999),
-    password: faker.internet.password(),
+    type,
+    protocol,
     port: faker.random.number({ min: 80, max: 99999 }),
-    protocol: faker.random.arrayElement(attrProtocol.options),
-    realm: faker.address.city(),
-    riskScore: faker.random.number(10),
-    sensitivityLevel: faker.random.number(5),
-    sessionRecord: faker.random.boolean(),
-    username: faker.internet.userName(),
-    resourceId,
-    links,
+    account: faker.random.word(),
+    sensitivity_level: faker.random.arrayElement(attrSensitivityLevel.options),
+    risk_score: faker.random.number(10),
+    credential,
+    allow_copy: faker.random.boolean(),
+    allow_paste: faker.random.boolean(),
+    allow_file_download: faker.random.boolean(),
+    allow_file_update: faker.random.boolean(),
+    commands_allowed: [
+      {
+        action: "mount",
+        command: "smbmount_dir"
+      }
+    ],
+    commands_not_allowd: [
+      {
+        action: "mount",
+        command: "smbmount_dir"
+      }
+    ],
+    resourceId
   };
 }
 
@@ -45,7 +68,7 @@ function generateData() {
   var resources = [];
   var connections = [];
 
-  for (let id = 0; id < 80; id++) {
+  for (let id = 0; id < 5; id++) {
     let c = faker.random.arrayElement(attrCategory.options);
     let t = faker.random.arrayElement(attrType.filterRules[c]);
     let createTime = faker.date

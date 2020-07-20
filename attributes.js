@@ -60,14 +60,10 @@ const attrGroup = {
     "Marketing",
   ],
 };
-const attrProtocol = {
-  name: "protocol",
-  type: "enum",
-  options: ["SSH", "HTTPS", "RDP"],
-};
+
 const attrTag = {
   name: "tags",
-  type: "enum",
+  type: "list",
   options: ["risk", "safe", "read only", "read write", "sensative"],
 };
 
@@ -96,7 +92,7 @@ const attrModel = {
 };
 
 const attrRoute = {
-  id: "route",
+  name: "route",
   type: "string",
   maxLength: 30,
 };
@@ -105,7 +101,6 @@ const resourceAttributes = [
   attrType,
   attrCategory,
   attrGroup,
-  attrProtocol,
   attrTag,
   attrName,
   attrDepartment,
@@ -115,21 +110,164 @@ const resourceAttributes = [
   attrRoute,
 ];
 
+const attrConnectType = {
+  name: "type",
+  type: "enum",
+  options: [
+    "text",
+    "image",
+    "App",
+    "File"
+  ]
+};
+
+const attrProtocol = {
+  name: "protocol",
+  type: "enum",
+  options: [
+    "SSH",
+    "HTTPS",
+    "RDP"
+  ],
+  filterBy: "type",
+  filterRules: {
+    text: ["SSH"],
+    image: ["HTTPS","RDP"],
+    App: [],
+    File: []
+  },
+};
+
+const attrPort = {
+  name: "port",
+  type: "number"
+}
+
+const attrDescription = {
+  name: "description",
+  type: "string"
+}
+
+const attrAccount = {
+  name: "account",
+  type: "string",
+  maxLength: 30
+}
+
+const attrCredential = {
+  name: "credential",
+  type: "list"
+}
+
+const attrSensitivityLevel = {
+  name: "sensitivity_level",
+  type: "enum",
+  options: [
+    "L1",
+    "L2",
+    "L3",
+    "L4",
+    "L5"
+  ]
+}
+
+const attrCredentialType = {
+  name: "credential_type",
+  type: "enum",
+  options: [
+    "Password",
+    "Certificate"
+  ]
+}
+
+const attrRiskScore = {
+  name: "risk_score",
+  type: "number"
+}
+
+const attrMaxConnections = {
+  name: "max_connections",
+  type: "number"
+}
+
+const attrMaxConnectionsPerUser = {
+  name: "max_connections_per_user",
+  type: "number"
+}
+
+const attrResolution = {
+  name: "resolution",
+  type: "enum",
+  options: []
+}
+
+const attrAllowCopy = {
+  name: "allow_copy",
+  type: "boolean"
+}
+
+const attrAllowPaste = {
+  name: "allow_paste",
+  type: "boolean"
+}
+
+const attrAllowDownload = {
+  name: "allow_file_download",
+  type: "boolean"
+}
+
+const attrAllowUpdate = {
+  name: "allow_file_update",
+  type: "boolean"
+}
+
+const attrCommandAllow = {
+  name: "commands_allowed",
+  type: "string"
+}
+
+const attrCommandNotAllow = {
+  name: "commands_not_allowed",
+  type: "string"
+}
+
+const connectAttributes = [
+  attrName,
+  attrConnectType,
+  attrProtocol,
+  attrPort,
+  attrDescription,
+  attrCredential,
+  attrAccount,
+  attrSensitivityLevel,
+  attrRiskScore,
+  attrResolution,
+  attrMaxConnections,
+  attrMaxConnectionsPerUser,
+  attrAllowCopy,
+  attrAllowPaste,
+  attrAllowDownload,
+  attrAllowUpdate,
+  attrCommandAllow,
+  attrCommandNotAllow,
+  attrCredentialType
+];
+
 const attributes = [
   {
     id: "Resource",
     name: "Resource",
-    fields: resourceAttributes,
+    fields: resourceAttributes
   },
   {
     id: "User",
     name: "User",
-    fields: [],
+    fields: []
   },
   {
     id: "Connect",
     name: "Connect",
-    fields: [],
+    fields: connectAttributes
   },
 ];
 
@@ -141,4 +279,7 @@ module.exports = {
   attrGroup,
   attrTag,
   attrProtocol,
+  attrSensitivityLevel,
+  attrConnectType,
+  attrCredentialType
 };
